@@ -17,22 +17,18 @@ const BookCard = ({ book, onAction, actionLabel, students }) => {
     }
   };
 
-  const defaultImage = 'https://placehold.co/200x300?text=No+Cover';
-
-  const handleImageError = (e) => {
-    e.target.src = defaultImage;
-  };
-
   return (
     <div className="card h-100 shadow-sm book-card">
-      <div className="book-image-container">
-        <img 
-          src={book.image || defaultImage} 
-          className="card-img-top book-image" 
-          alt={book.title}
-          onError={handleImageError}
-        />
-      </div>
+      {book.image && (
+        <div className="book-image-container bg-light d-flex align-items-center justify-content-center" style={{ height: '200px' }}>
+          <img 
+            src={book.image} 
+            className="card-img-top book-image" 
+            alt={book.title}
+            style={{ maxHeight: '100%', objectFit: 'contain' }}
+          />
+        </div>
+      )}
       <div className="card-body d-flex flex-column">
         <h5 className="card-title">{book.title}</h5>
         <p className="card-text mb-1"><strong>ISBN:</strong> {book.isbn}</p>
