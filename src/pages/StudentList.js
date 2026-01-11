@@ -31,7 +31,7 @@ const StudentList = () => {
       setShowAddForm(false);
       fetchStudents();
     } catch (error) {
-      alert('Error adding student');
+      alert(error.response?.data?.message || 'Error adding student');
     }
   };
 
@@ -100,7 +100,7 @@ const StudentList = () => {
                 return acc + penalty;
               }, 0);
 
-              const totalPenalty = student.totalPenaltyDue + livePenalty;
+              const totalPenalty = (student.totalPenaltyDue || 0) + livePenalty;
 
               return (
                 <tr key={student._id}>
