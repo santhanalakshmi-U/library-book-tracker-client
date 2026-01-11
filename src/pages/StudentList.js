@@ -86,19 +86,38 @@ const StudentList = () => {
             <tr>
               <th>Name</th>
               <th>Department</th>
-              <th>Pending Penalty</th>
+              <th>Past Due Penalty</th>
+              <th>Live Issued Penalty</th>
+              <th>Total Penalty</th>
             </tr>
           </thead>
           <tbody>
-            {students.map(student => (
-              <tr key={student._id}>
-                <td>{student.name}</td>
-                <td>{student.department}</td>
-                <td className={student.totalPenaltyDue > 0 ? 'text-danger fw-bold' : ''}>
-                  ₹{student.totalPenaltyDue}
-                </td>
-              </tr>
-            ))}
+            {students.map(student => {
+              // Calculate live penalty for currently issued books
+              const livePenalty = (student.issuedBooks || []).reduce((acc, book) => {
+                const diffDays = Math.ceil(Math.abs(new Date() - new Date(book.issuedDate)) / (1000 * 60 * 60 * 24));
+                const penalty = diffDays > 7 ? (diffDays - 7) * 5 : 0;
+                return acc + penalty;
+              }, 0);
+
+              const totalPenalty = student.totalPenaltyDue + livePenalty;
+
+              return (
+                <tr key={student._id}>
+                  <td>{student.name}</td>
+                  <td>{student.department}</td>
+                  <td className={student.totalPenaltyDue > 0 ? 'text-danger' : ''}>
+                    ₹{student.totalPenaltyDue}
+                  </td>
+                  <td className={livePenalty > 0 ? 'text-warning fw-bold' : ''}>
+                    ₹{livePenalty}
+                  </td>
+                  <td className={totalPenalty > 0 ? 'text-danger fw-bold' : ''}>
+                    ₹{totalPenalty}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
