@@ -65,7 +65,7 @@ const BookCard = ({ book, onAction, actionLabel, students }) => {
           </div>
         )}
         
-        {book.penalty > 0 && (
+        {book.status === 'issued' && book.penalty > 0 && (
           <p className="card-text mb-1 text-danger small">
             <strong>Last Penalty:</strong> ₹{book.penalty}
           </p>
