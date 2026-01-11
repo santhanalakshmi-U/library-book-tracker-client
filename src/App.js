@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import AvailableBooks from './pages/AvailableBooks';
 import IssuedBooks from './pages/IssuedBooks';
 import StudentList from './pages/StudentList';
+import PenaltyHistory from './pages/PenaltyHistory';
 import AboutUs from './pages/AboutUs';
 import Login from './pages/Login';
 
@@ -39,6 +40,12 @@ function App() {
           <Route path="/students" element={
             <ProtectedRoute allowedRole="Admin">
               <StudentList />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/penalties" element={
+            <ProtectedRoute>
+              <PenaltyHistory />
             </ProtectedRoute>
           } />
           

@@ -33,6 +33,9 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/issued">Issued Books</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/penalties">Penalties</Link>
+            </li>
             {user.role === 'Admin' && (
               <li className="nav-item">
                 <Link className="nav-link" to="/students">Students</Link>

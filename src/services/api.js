@@ -11,3 +11,6 @@ export const issueBook = (bookId, studentId) => axios.post(`${API_URL}/books/iss
 export const returnBook = (bookId) => axios.post(`${API_URL}/books/return`, { bookId });
 export const createBook = (bookData) => axios.post(`${API_URL}/books`, bookData);
 export const createStudent = (studentData) => axios.post(`${API_URL}/students`, studentData);
+
+export const getPenalties = () => axios.get(`${API_URL}/penalties`);
+export const markPenaltyAsPaid = (id) => axios.put(`${API_URL}/penalties/${id}/pay`);

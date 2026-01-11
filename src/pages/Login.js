@@ -36,8 +36,8 @@ const Login = () => {
       <div className="row justify-content-center">
         <div className="col-md-5">
           <div className="card shadow-lg border-0 rounded-4">
-            <div className="card-header bg-primary text-white text-center py-4 rounded-top-4">
-              <h2 className="fw-bold mb-0">Library Login</h2>
+            <div className="card-header bg-galaxy text-white text-center py-4 rounded-top-4">
+              <h2 className="fw-bold mb-0 border-0 p-0 text-white">Library Login</h2>
             </div>
             <div className="card-body p-5">
               {error && <div className="alert alert-danger">{error}</div>}
