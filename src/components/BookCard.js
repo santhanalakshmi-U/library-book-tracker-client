@@ -43,9 +43,30 @@ const BookCard = ({ book, onAction, actionLabel, students }) => {
         </p>
         
         {book.status === 'issued' && book.issuedTo && (
-          <p className="card-text mb-1 small">
-            <strong>Issued To:</strong> {book.issuedTo.name}
-          </p>
+          <div className="mt-2 small border-top pt-2">
+            <p className="card-text mb-1">
+              <strong>Issued To:</strong> {book.issuedTo.name}
+            </p>
+            <p className="card-text mb-1">
+              <strong>Issued Date:</strong> {new Date(book.issuedDate).toLocaleDateString()}
+            </p>
+            <p className="card-text mb-1">
+              <strong>Due Date:</strong> {new Date(new Date(book.issuedDate).getTime() + 7 * 24 * 60 * 60 * 1000).toLocaleDateString()}
+            </p>
+            {(() => {
+              const diffDays = Math.ceil(Math.abs(new Date() - new Date(book.issuedDate)) / (1000 * 60 * 60 * 24));
+              const currentPenalty = diffDays > 7 ? (diffDays - 7) * 5 : 0;
+              return currentPenalty > 0 ? (
+                <p className="card-text mb-1 text-danger fw-bold">
+                  <strong>Current Penalty:</strong> ₹{currentPenalty}
+                </p>
+              ) : (
+                <p className="card-text mb-1 text-success small">
+                  No penalty yet
+                </p>
+              );
+            })()}
+          </div>
         )}
         
         {book.penalty > 0 && (
