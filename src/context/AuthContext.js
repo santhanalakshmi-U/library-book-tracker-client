@@ -7,7 +7,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const API_URL = process.env.REACT_APP_BACKEND_URL
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+  const API_URL = `${BACKEND_URL}/api`;
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
@@ -19,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password, role) => {
     try {
-      const res = await axios.post("https://velvety-banoffee-587fb2.netlify.app/api/auth/login", { email, password, role });
+      const res = await axios.post(`${API_URL}/auth/login`, { email, password, role });
       if (res.data.success) {
         setUser(res.data.user);
         localStorage.setItem('user', JSON.stringify(res.data.user));
